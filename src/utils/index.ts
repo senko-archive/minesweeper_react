@@ -1,3 +1,4 @@
+import React from "react";
 import { MAX_ROWS, MAX_COLS, NUMBER_OF_BOMBS } from "../constants";
 import { CellState, CellValue, Cell } from "../types";
 
