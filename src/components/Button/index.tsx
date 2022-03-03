@@ -8,9 +8,10 @@ interface ButtonProps {
     state: CellState;
     value: CellValue;
     onClick(rowParam:number, colParam:number): (...args: any[]) => void;
+    onContext(rowParam:number, colParam:number): (...args: any[]) => void;
 }
 
-const Button: React.FC<ButtonProps> = ({row, col, state, value, onClick}) => {
+const Button: React.FC<ButtonProps> = ({row, col, state, value, onClick, onContext}) => {
 
     const renderContent = ():React.ReactNode => {
         if(state === CellState.visible) {
@@ -28,13 +29,19 @@ const Button: React.FC<ButtonProps> = ({row, col, state, value, onClick}) => {
             return value;
         }
         else if(state === CellState.flagged) {
-            // TODO: Display flag emoji
+            return(
+                <span role="img" aria-label="flag">
+                    🚩
+                </span>
+            )
         }
         
     }
 
     return <div className={`Button ${state === CellState.visible ? "visible" : ""} value-${value}`}
-    onClick={onClick(row, col)}>
+    onClick={onClick(row, col)}
+    onContextMenu={onContext(row, col)}
+    >
         {renderContent()}
     </div>
 }
